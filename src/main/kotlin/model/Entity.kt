@@ -1,8 +1,11 @@
 package model
 
+/**
+ * Entity definition data.
+ */
 data class Entity(
     val name: String,
-    val namespace: String,
     val description: String,
-    var columns: List<EntityColumn>
-    )
+    val namespace: String,
+    val columns: List<EntityColumn>,
+)

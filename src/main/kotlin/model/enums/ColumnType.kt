@@ -7,6 +7,7 @@ enum class ColumnType {
     INT,
     VARCHAR,
     DATE,
+    DATETIME,
     ENUM,
     BOOLEAN,
 }
