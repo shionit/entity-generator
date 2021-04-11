@@ -1,0 +1,17 @@
+package {{namespace}};
+
+{{javaImportText}}
+
+/**
+  * {{{description}}}
+  *
+  * @author entity-generator
+  */
+public class {{javaName}} {
+{{#columns}}
+
+    /** {{{description}}} */
+    private {{javaType}} {{javaName}};
+{{/columns}}
+}
+

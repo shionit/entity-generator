@@ -17,6 +17,7 @@ val ktlint by configurations.creating
 dependencies {
     ktlint("com.pinterest:ktlint:0.41.0")
     implementation("org.apache.poi:poi-ooxml:5.0.0")
+    implementation("com.github.spullara.mustache.java:compiler:0.9.7")
     testImplementation(kotlin("test-junit5"))
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.6.0")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.6.0")
