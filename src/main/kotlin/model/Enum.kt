@@ -1,6 +1,6 @@
 package model
 
-import misc.toUpperCamelCase
+import com.google.common.base.CaseFormat
 
 /**
  * Enum definition data.
@@ -12,6 +12,6 @@ data class Enum(
     val entries: List<EnumEntry>,
 ) {
     fun javaName(): String {
-        return name.toUpperCamelCase()
+        return CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, name)
     }
 }

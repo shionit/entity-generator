@@ -30,10 +30,7 @@ class EntityDefinitionReader {
         val metadata = readMetaColumns(workbook)
 
         val enums = readEnums(workbook)
-        val enumMap = emptyMap<String, Enum>().toMutableMap()
-        for (it in enums) {
-            enumMap.put(it.name, it)
-        }
+        val enumMap = enums.associateBy { it.name }
 
         val entities = readEntities(workbook)
 

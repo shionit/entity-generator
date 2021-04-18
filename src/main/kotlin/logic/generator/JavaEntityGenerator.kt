@@ -20,15 +20,15 @@ class JavaEntityGenerator {
 
     private fun generateEnums(definition: Definition, factory: DefaultMustacheFactory) {
         val mustache = factory.compile("Enum.mustache")
-        for (enum in definition.enumMap.values) {
-            mustache.execute(PrintWriter(System.out), enum).flush()
+        definition.enumMap.mapValues {
+            mustache.execute(PrintWriter(System.out), it.value).flush()
         }
     }
 
     private fun generateEntities(definition: Definition, factory: DefaultMustacheFactory) {
         val mustache = factory.compile("Entity.mustache")
-        for (entity in definition.entities) {
-            mustache.execute(PrintWriter(System.out), entity).flush()
+        definition.entities.forEach {
+            mustache.execute(PrintWriter(System.out), it).flush()
         }
     }
 }

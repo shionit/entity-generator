@@ -1,6 +1,6 @@
 package model
 
-import misc.toLowerCamelCase
+import com.google.common.base.CaseFormat
 import model.enums.ColumnType
 
 /**
@@ -17,7 +17,7 @@ data class EntityColumn(
     var enumType: String? = null
 
     fun javaName(): String {
-        return name.toLowerCamelCase()
+        return CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, name)
     }
 
     fun javaType(): String {

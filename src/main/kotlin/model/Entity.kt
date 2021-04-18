@@ -1,6 +1,6 @@
 package model
 
-import misc.toUpperCamelCase
+import com.google.common.base.CaseFormat
 
 /**
  * Entity definition data.
@@ -12,7 +12,7 @@ data class Entity(
     val columns: List<EntityColumn>,
 ) {
     fun javaName(): String {
-        return name.toUpperCamelCase()
+        return CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, name)
     }
 
     fun javaImportText(): String {
