@@ -11,7 +11,7 @@ data class Entity(
     val description: String,
     val namespace: String,
     val columns: List<EntityColumn>,
-) {
+) : GenerateTarget {
     fun javaName(): String {
         return CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, name)
     }
