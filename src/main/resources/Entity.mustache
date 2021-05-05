@@ -1,25 +1,38 @@
 {{>copyright}}
 package {{namespace}};
 
-{{#uniqueEnums}}
-import {{namespace}}.*;
+import javax.persistence.Entity;
+{{#hasId}}import javax.persistence.Id;
+{{/hasId}}import lombok.Data;
+import lombok.NoArgsConstructor;
+{{#hasLengthColumn}}import org.hibernate.validator.constraints.Length;
+{{/hasLengthColumn}}{{#uniqueEnums}}
+  import {{namespace}}.*;
 {{/uniqueEnums}}
 
 /**
-  * {{{description}}}
-  *
-  * @author entity-generator
-  */
+* {{{description}}}
+*
+* @author entity-generator
+*/
+@Data
+@Entity
+@NoArgsConstructor
 public class {{javaName}} {
 {{#columns}}
 
-    /** {{{description}}} */
-    private {{javaType}} {{javaName}};
+  /** {{{description}}} */
+  {{#isPk}}    @Id
+  {{/isPk}}{{#hasLength}}    @Length(max = {{length}})
+  {{/hasLength}}
+  private {{javaType}} {{javaName}};
 {{/columns}}
 {{#metaColumns}}
 
-    /** {{{description}}} */
-    private {{javaType}} {{javaName}};
+  /** {{{description}}} */
+  {{#hasLength}}    @Length(max = {{length}})
+  {{/hasLength}}
+  private {{javaType}} {{javaName}};
 {{/metaColumns}}
 }
 
