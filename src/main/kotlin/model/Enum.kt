@@ -15,3 +15,12 @@ data class Enum(
         return CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, name)
     }
 }
+
+/**
+ * Enum entry definition data.
+ */
+data class EnumEntry(
+    val name: String,
+    val description: String,
+    val value: Int,
+)
