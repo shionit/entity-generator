@@ -1,8 +1,9 @@
 {{>copyright}}
-
 package {{namespace}};
 
-{{javaImportText}}
+{{#uniqueEnums}}
+import {{namespace}}.*;
+{{/uniqueEnums}}
 
 /**
   * {{{description}}}
@@ -15,5 +16,10 @@ public class {{javaName}} {
     /** {{{description}}} */
     private {{javaType}} {{javaName}};
 {{/columns}}
+{{#metaColumns}}
+
+    /** {{{description}}} */
+    private {{javaType}} {{javaName}};
+{{/metaColumns}}
 }
 

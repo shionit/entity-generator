@@ -27,27 +27,30 @@ class EntityDefinitionReader {
      * Read Entity definitions from workbook.
      */
     fun readBook(workbook: Workbook): Definition {
-        val metadata = readMetaColumns(workbook)
+        val metaColumns = readMetaColumns(workbook)
 
         val enums = readEnums(workbook)
         val enumMap = enums.associateBy { it.name }
 
-        val entities = readEntities(workbook)
+        val entities = readEntities(workbook, metaColumns)
+        entities.forEach { entity ->
+            entity.columns.filter {
+                !it.enumType.isNullOrBlank()
+            }.forEach {
+                it.enumClass = enumMap.get(it.enumType)
+            }
+        }
 
-        return Definition(metadata, enumMap, entities)
+        return Definition(enumMap, entities)
     }
 
-    private fun readMetaColumns(workbook: Workbook): Entity {
+    private fun readMetaColumns(workbook: Workbook): List<EntityColumn> {
         val sheet = workbook.getSheet(META_SHEET_NAME)
         if (sheet == null) {
             println("META sheet not found.")
             exitProcess(-1)
         }
-        val name = sheet[1, 0].stringCellValue
-        val description = sheet[1, 1].stringCellValue
-        val namespace = sheet[1, 2].stringCellValue
-        val columns = readColumns(sheet)
-        return Entity(name, description, namespace, columns)
+        return readColumns(sheet)
     }
 
     private fun readColumns(sheet: Sheet): List<EntityColumn> {
@@ -114,7 +117,7 @@ class EntityDefinitionReader {
         return entries
     }
 
-    private fun readEntities(workbook: Workbook): List<Entity> {
+    private fun readEntities(workbook: Workbook, metaColumns: List<EntityColumn>): List<Entity> {
         val entities = emptyList<Entity>().toMutableList()
         for (sheet in workbook) {
             if (sheet == null) {
@@ -128,7 +131,7 @@ class EntityDefinitionReader {
             val description = sheet[1, 1].stringCellValue
             val namespace = sheet[1, 2].stringCellValue
             val columns = readColumns(sheet)
-            entities.add(Entity(name, description, namespace, columns))
+            entities.add(Entity(name, description, namespace, columns, metaColumns))
         }
         return entities
     }

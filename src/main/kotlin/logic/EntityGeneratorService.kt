@@ -19,7 +19,6 @@ class EntityGeneratorService {
         val definition = reader.readBook(workbook)
 
         // debug log
-        println(definition.metadata)
         println(definition.enumMap)
         println(definition.entities)
 

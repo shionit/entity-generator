@@ -1,7 +1,5 @@
 package model
 
-import com.google.common.base.CaseFormat
-
 /**
  * Enum definition data.
  */
@@ -10,11 +8,7 @@ data class Enum(
     val description: String,
     val namespace: String,
     val entries: List<EnumEntry>,
-) : GenerateTarget {
-    fun javaName(): String {
-        return CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, name)
-    }
-}
+) : GenerateTarget
 
 /**
  * Enum entry definition data.
