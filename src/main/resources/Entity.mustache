@@ -1,0 +1,25 @@
+{{>copyright}}
+package {{namespace}};
+
+{{#uniqueEnums}}
+import {{namespace}}.*;
+{{/uniqueEnums}}
+
+/**
+  * {{{description}}}
+  *
+  * @author entity-generator
+  */
+public class {{javaName}} {
+{{#columns}}
+
+    /** {{{description}}} */
+    private {{javaType}} {{javaName}};
+{{/columns}}
+{{#metaColumns}}
+
+    /** {{{description}}} */
+    private {{javaType}} {{javaName}};
+{{/metaColumns}}
+}
+

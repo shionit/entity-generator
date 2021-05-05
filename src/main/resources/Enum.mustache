@@ -1,0 +1,16 @@
+{{>copyright}}
+package {{namespace}};
+
+/**
+  * {{{description}}}
+  *
+  * @author entity-generator
+  */
+public enum {{name}} {
+{{#entries}}
+
+    /** {{{description}}} */
+    {{name}},
+{{/entries}}
+}
+

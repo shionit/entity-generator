@@ -1,5 +1,6 @@
 package logic
 
+import logic.generator.JavaEntityGenerator
 import logic.reader.EntityDefinitionReader
 import org.apache.poi.ss.usermodel.Workbook
 
@@ -13,15 +14,18 @@ class EntityGeneratorService {
      * and Generate source files.
      */
     fun process(workbook: Workbook) {
+        // read Excel file and Create Java Objects
         val reader = EntityDefinitionReader()
         val definition = reader.readBook(workbook)
 
         // debug log
-        println(definition.metadata)
         println(definition.enumMap)
         println(definition.entities)
 
-        // TODO: #5  create Java definition files
+        // create Java definition files
+        val javaGenerator = JavaEntityGenerator()
+        javaGenerator.execute(definition)
+
         // TODO: #6  create SQL DDL files
     }
 }
