@@ -21,10 +21,20 @@ data class Entity(
         return columns.filter {
             it.enumClass != null
         }.distinctBy {
-            it.enumClass!!.namespace
+            it.enumClass?.namespace
         }.sortedBy {
-            it.enumClass!!.namespace
+            it.enumClass?.namespace
         }.map { it.enumClass!! }
+    }
+
+    fun hasId(): Boolean {
+        return columns.any { it.pk > 0 }
+    }
+
+    fun hasLengthColumn(): Boolean {
+        return columns.any { it.hasLength() }.or(
+            metaColumns.any { it.hasLength() }
+        )
     }
 }
 
@@ -55,5 +65,13 @@ data class EntityColumn(
             ColumnType.DATE -> "java.util.Date"
             ColumnType.DATETIME -> "java.sql.Timestamp"
         }
+    }
+
+    fun isPk(): Boolean {
+        return pk > 0
+    }
+
+    fun hasLength(): Boolean {
+        return length != null && length!! > 0
     }
 }
