@@ -18,13 +18,12 @@ data class Entity(
     }
 
     fun uniqueEnums(): List<Enum> {
-        return columns.filter {
-            it.enumClass != null
-        }.distinctBy {
-            it.enumClass?.namespace
-        }.sortedBy {
-            it.enumClass?.namespace
-        }.map { it.enumClass!! }
+        return columns.flatMap { listOf(it.enumClass) }.filterNotNull()
+            .distinctBy {
+                it.namespace
+            }.sortedBy {
+                it.namespace
+            }.map { it }
     }
 
     fun hasId(): Boolean {
