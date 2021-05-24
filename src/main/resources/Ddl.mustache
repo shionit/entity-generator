@@ -1,0 +1,13 @@
+/**
+* {{{description}}}
+*/
+create table {{name}}(
+{{#columns}}
+  {{name}} {{type}}{{#hasLength}}({{length}}){{/hasLength}} {{#notNull}}NOT NULL{{/notNull}},
+{{/columns}}
+{{#metaColumns}}
+  {{name}} {{type}}{{#hasLength}}({{length}}){{/hasLength}} {{#notNull}}NOT NULL{{/notNull}},
+{{/metaColumns}}
+{{#hasId}}  PRIMARY KEY ( {{idColumns}} ){{/hasId}}
+);
+

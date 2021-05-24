@@ -30,6 +30,10 @@ data class Entity(
         return columns.any { it.pk > 0 }
     }
 
+    fun idColumns(): String {
+        return columns.filter { it.isPk() }.joinToString { it.name }
+    }
+
     fun hasLengthColumn(): Boolean {
         return columns.any { it.hasLength() }.or(
             metaColumns.any { it.hasLength() }
