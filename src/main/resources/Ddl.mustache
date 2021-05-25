@@ -3,7 +3,11 @@
 */
 create table {{name}}(
 {{#columns}}
-  {{name}} {{type}}{{#hasLength}}({{length}}){{/hasLength}} {{#notNull}}NOT NULL{{/notNull}},
+  {{name}} {{type}}{{^isEnum
+  }}{{#hasLength}}({{length}}){{/hasLength}}{{/isEnum
+  }}{{#isEnum
+  }}({{#enumClass.entries}}'{{name}}'{{^isLast}}, {{/isLast}}{{/enumClass.entries}}){{/isEnum
+  }}{{#notNull}} NOT NULL{{/notNull}},
 {{/columns}}
 {{#metaColumns}}
   {{name}} {{type}}{{#hasLength}}({{length}}){{/hasLength}} {{#notNull}}NOT NULL{{/notNull}},

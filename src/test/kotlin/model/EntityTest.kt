@@ -180,4 +180,19 @@ internal class EntityColumnTest {
             assertFalse(target.hasLength())
         }
     }
+
+    @Nested
+    inner class IsEnum {
+        @Test
+        fun enumColumnIsTrue() {
+            val target = EntityColumn("name", "desc", ColumnType.ENUM, false)
+            assertTrue(target.isEnum())
+        }
+
+        @Test
+        fun intColumnIsFalse() {
+            val target = defaultTarget()
+            assertFalse(target.isEnum())
+        }
+    }
 }

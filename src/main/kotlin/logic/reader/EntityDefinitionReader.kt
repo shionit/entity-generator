@@ -114,6 +114,7 @@ class EntityDefinitionReader {
             val value = row[2].numericCellValue.toInt()
             entries.add(EnumEntry(name, description, value))
         }
+        entries.last().isLast = true
         return entries
     }
 

@@ -77,4 +77,8 @@ data class EntityColumn(
     fun hasLength(): Boolean {
         return length != null && length!! > 0
     }
+
+    fun isEnum(): Boolean {
+        return type == ColumnType.ENUM
+    }
 }
