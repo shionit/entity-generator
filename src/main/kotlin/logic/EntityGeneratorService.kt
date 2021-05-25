@@ -1,5 +1,6 @@
 package logic
 
+import logic.generator.DdlEntityGenerator
 import logic.generator.JavaEntityGenerator
 import logic.reader.EntityDefinitionReader
 import org.apache.poi.ss.usermodel.Workbook
@@ -26,6 +27,8 @@ class EntityGeneratorService {
         val javaGenerator = JavaEntityGenerator()
         javaGenerator.execute(definition)
 
-        // TODO: #6  create SQL DDL files
+        // create SQL DDL files
+        val ddlGenerator = DdlEntityGenerator()
+        ddlGenerator.execute(definition)
     }
 }

@@ -79,6 +79,30 @@ internal class EntityTest {
     }
 
     @Nested
+    inner class IdColumns {
+        @Test
+        fun hasOneId() {
+            val target = defaultTarget()
+            target.columns.first().pk = 1
+            assertEquals("name1", target.idColumns())
+        }
+
+        @Test
+        fun hasMultiId() {
+            val target = defaultTarget()
+            target.columns.first().pk = 1
+            target.columns.last().pk = 2
+            assertEquals("name1, name3", target.idColumns())
+        }
+
+        @Test
+        fun noId() {
+            val target = defaultTarget()
+            assertEquals("", target.idColumns())
+        }
+    }
+
+    @Nested
     inner class HasLengthColumn {
         @Test
         fun hasOneLengthColumn() {
@@ -154,6 +178,21 @@ internal class EntityColumnTest {
             val target = defaultTarget()
             target.length = 0
             assertFalse(target.hasLength())
+        }
+    }
+
+    @Nested
+    inner class IsEnum {
+        @Test
+        fun enumColumnIsTrue() {
+            val target = EntityColumn("name", "desc", ColumnType.ENUM, false)
+            assertTrue(target.isEnum())
+        }
+
+        @Test
+        fun intColumnIsFalse() {
+            val target = defaultTarget()
+            assertFalse(target.isEnum())
         }
     }
 }

@@ -30,6 +30,10 @@ data class Entity(
         return columns.any { it.pk > 0 }
     }
 
+    fun idColumns(): String {
+        return columns.filter { it.isPk() }.joinToString { it.name }
+    }
+
     fun hasLengthColumn(): Boolean {
         return columns.any { it.hasLength() }.or(
             metaColumns.any { it.hasLength() }
@@ -72,5 +76,9 @@ data class EntityColumn(
 
     fun hasLength(): Boolean {
         return length != null && length!! > 0
+    }
+
+    fun isEnum(): Boolean {
+        return type == ColumnType.ENUM
     }
 }
