@@ -23,7 +23,7 @@ internal class EntityTest {
     }
 
     @Nested
-    inner class UniqueEnums {
+    inner class UniqueEnumsTest {
         @Test
         fun hasOneEnum() {
             val target = defaultTarget()
@@ -55,7 +55,7 @@ internal class EntityTest {
     }
 
     @Nested
-    inner class HasId {
+    inner class HasIdTest {
         @Test
         fun hasOneId() {
             val target = defaultTarget()
@@ -79,7 +79,7 @@ internal class EntityTest {
     }
 
     @Nested
-    inner class IdColumns {
+    inner class IdColumnsTest {
         @Test
         fun hasOneId() {
             val target = defaultTarget()
@@ -103,7 +103,7 @@ internal class EntityTest {
     }
 
     @Nested
-    inner class HasLengthColumn {
+    inner class HasLengthColumnTest {
         @Test
         fun hasOneLengthColumn() {
             val target = defaultTarget()
@@ -141,7 +141,7 @@ internal class EntityColumnTest {
     }
 
     @Nested
-    inner class IsPk {
+    inner class IsPkTest {
         @Test
         fun isPk() {
             val target = defaultTarget()
@@ -158,7 +158,7 @@ internal class EntityColumnTest {
     }
 
     @Nested
-    inner class HasLength {
+    inner class HasLengthTest {
         @Test
         fun hasLength() {
             val target = defaultTarget()
@@ -182,7 +182,7 @@ internal class EntityColumnTest {
     }
 
     @Nested
-    inner class IsEnum {
+    inner class IsEnumTest {
         @Test
         fun enumColumnIsTrue() {
             val target = EntityColumn("name", "desc", ColumnType.ENUM, false)
