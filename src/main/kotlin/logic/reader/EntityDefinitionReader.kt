@@ -23,6 +23,16 @@ class EntityDefinitionReader {
         const val FIRST_COLUMN_DEFINITION_ROWNUM = 5
     }
 
+    private enum class EntityColNum {
+        NAME,
+        DESCRIPTION,
+        TYPE,
+        LENGTH,
+        NOT_NULL,
+        PK,
+        ENUM_TYPE,
+    }
+
     /**
      * Read Entity definitions from workbook.
      */
@@ -57,26 +67,26 @@ class EntityDefinitionReader {
         val columns = emptyList<EntityColumn>().toMutableList()
         for (i in FIRST_COLUMN_DEFINITION_ROWNUM..sheet.lastRowNum) {
             val row = sheet[i]
-            val name = row[0].stringCellValue
+            val name = row[EntityColNum.NAME.ordinal].stringCellValue
             if (name.isEmpty()) {
                 break
             }
-            val description = row[1].stringCellValue
-            val type = ColumnType.valueOf(row[2].stringCellValue)
-            val notNullText = row[4].stringCellValue
+            val description = row[EntityColNum.DESCRIPTION.ordinal].stringCellValue
+            val type = ColumnType.valueOf(row[EntityColNum.TYPE.ordinal].stringCellValue)
+            val notNullText = row[EntityColNum.NOT_NULL.ordinal].stringCellValue
             val notNull = "Y" == notNullText
             val column = EntityColumn(name, description, type, notNull)
             // optional properties
-            val lengthNum = row[3].numericCellValue
+            val lengthNum = row[EntityColNum.LENGTH.ordinal].numericCellValue
             column.length = when (type) {
                 ColumnType.INT -> lengthNum.toInt()
                 ColumnType.VARCHAR -> lengthNum.toInt()
                 else -> null
             }
-            val pkNum = row[5].numericCellValue
+            val pkNum = row[EntityColNum.PK.ordinal].numericCellValue
             column.pk = pkNum.toInt()
             if (type == ColumnType.ENUM) {
-                column.enumType = row[6].stringCellValue
+                column.enumType = row[EntityColNum.ENUM_TYPE.ordinal].stringCellValue
             }
             columns.add(column)
         }
@@ -86,9 +96,6 @@ class EntityDefinitionReader {
     private fun readEnums(workbook: Workbook): List<Enum> {
         val enums = emptyList<Enum>().toMutableList()
         for (sheet in workbook) {
-            if (sheet == null) {
-                continue
-            }
             val sheetType = sheet[0, 0].stringCellValue
             if (sheetType != "EnumName") {
                 continue
@@ -121,9 +128,6 @@ class EntityDefinitionReader {
     private fun readEntities(workbook: Workbook, metaColumns: List<EntityColumn>): List<Entity> {
         val entities = emptyList<Entity>().toMutableList()
         for (sheet in workbook) {
-            if (sheet == null) {
-                continue
-            }
             val sheetType = sheet[0, 0].stringCellValue
             if (sheetType != "EntityName" || sheet.sheetName == META_SHEET_NAME) {
                 continue
